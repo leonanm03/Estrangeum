@@ -39,35 +39,36 @@ backend-estrangeum/.vscode/
 
 
 #########Frontend
-# Build files
+# dependencies
+frontend-estrangeum/node_modules
+frontend-estrangeum/.pnp
+frontend-estrangeum/.pnp.js
+
+# testing
+frontend-estrangeum/coverage
+
+# next.js
 frontend-estrangeum/.next/
 frontend-estrangeum/out/
 
-# Dependency directories
-frontend-estrangeum/node_modules/
+# production
+frontend-estrangeum/build
 
-# Cache files
-frontend-estrangeum/.cache/
-frontend-estrangeum/.npm/
-frontend-estrangeum/yarn-error.log
-
-# Other files
+# misc
 frontend-estrangeum/.DS_Store
-frontend-estrangeum/.env.local
-frontend-estrangeum/.env.development.local
-frontend-estrangeum/.env.test.local
-frontend-estrangeum/.env.production.local
+frontend-estrangeum/*.pem
 
-# Logs
+# debug
 frontend-estrangeum/npm-debug.log*
 frontend-estrangeum/yarn-debug.log*
 frontend-estrangeum/yarn-error.log*
 
-# Automatically generated files
-frontend-estrangeum/*.log
-frontend-estrangeum/*.bak
-frontend-estrangeum/*.lock
+# local env files
+frontend-estrangeum/.env*.local
 
-# IDE / Editor
-frontend-estrangeum/.idea/
-frontend-estrangeum/.vscode/
+# vercel
+frontend-estrangeum/.vercel
+
+# typescript
+frontend-estrangeum/*.tsbuildinfo
+frontend-estrangeum/next-env.d.ts
