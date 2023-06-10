@@ -1,5 +1,5 @@
 # Bakend
-backed-estrangeum/node_modules
+./backed-estrangeum/node_modules
 
 # Frontend
-frontend-estrangeum/node_modules
+./frontend-estrangeum/node_modules
