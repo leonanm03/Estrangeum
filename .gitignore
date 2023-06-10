@@ -1,5 +1,73 @@
-# Bakend
-backend-estrangeum/node_modules
+#########Backend
 
-# Frontend
-frontend-estrangeum/node_modules
+# Build files
+backend-estrangeum/dist/
+backend-estrangeum/build/
+backend-estrangeum/out/
+
+# Dependency directories
+backend-estrangeum/node_modules/
+
+# Cache files
+backend-estrangeum/.cache/
+backend-estrangeum/.npm/
+backend-estrangeum/yarn-error.log
+
+# Other files
+backend-estrangeum/.DS_Store
+backend-estrangeum/.env
+backend-estrangeum/.env.local
+backend-estrangeum/.env.test
+backend-estrangeum/.env.development
+backend-estrangeum/.env.production
+
+# Logs
+backend-estrangeum/npm-debug.log*
+backend-estrangeum/yarn-debug.log*
+backend-estrangeum/yarn-error.log*
+
+# Automatically generated files
+backend-estrangeum/*.log
+backend-estrangeum/*.bak
+backend-estrangeum/*.lock
+
+# IDE / Editor
+backend-estrangeum/.idea/
+backend-estrangeum/.vscode/
+
+
+
+
+#########Frontend
+# Build files
+frontend-estrangeum/.next/
+frontend-estrangeum/out/
+
+# Dependency directories
+frontend-estrangeum/node_modules/
+
+# Cache files
+frontend-estrangeum/.cache/
+frontend-estrangeum/.npm/
+frontend-estrangeum/yarn-error.log
+
+# Other files
+frontend-estrangeum/.DS_Store
+frontend-estrangeum/.env.local
+frontend-estrangeum/.env.development.local
+frontend-estrangeum/.env.test.local
+frontend-estrangeum/.env.production.local
+
+# Logs
+frontend-estrangeum/npm-debug.log*
+frontend-estrangeum/yarn-debug.log*
+frontend-estrangeum/yarn-error.log*
+
+# Automatically generated files
+frontend-estrangeum/*.log
+frontend-estrangeum/*.bak
+frontend-estrangeum/*.lock
+
+# IDE / Editor
+frontend-estrangeum/.idea/
+frontend-estrangeum/.vscode/
