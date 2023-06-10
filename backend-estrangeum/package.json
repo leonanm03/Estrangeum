@@ -4,7 +4,13 @@
   "description": "backend project os estrengeum, a virtual museum of estrange things",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:migration:run": "npm run dev:load-envs prisma migrate deploy",
+    "dev:migration:generate": "npm run dev:load-envs prisma migrate dev",
+    "dev:migration:reset": "npm run dev:load-envs prisma migrate reset",
+    "dev:load-envs": "dotenv -e .env.development",
+    "client:generate": "prisma generate",
+    "dev:seed": "npm run dev:load-envs prisma db seed",
+    "dev": "cross-env NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts"
   },
   "repository": {
     "type": "git",
