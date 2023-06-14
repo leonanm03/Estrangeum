@@ -1,7 +1,7 @@
 {
   "name": "backend-estrangeum",
   "version": "1.0.0",
-  "description": "backend project os estrengeum, a virtual museum of estrange things",
+  "description": "backend project of estrangeum, a virtual museum of estrange things",
   "main": "index.js",
   "scripts": {
     "dev:migration:run": "npm run dev:load-envs prisma migrate deploy",
@@ -10,7 +10,13 @@
     "dev:load-envs": "dotenv -e .env.development",
     "client:generate": "prisma generate",
     "dev:seed": "npm run dev:load-envs prisma db seed",
-    "dev": "cross-env NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts"
+    "dev": "cross-env NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
+    "test:migration:run": "npm run test:load-envs prisma migrate deploy",
+    "test:migration:generate": "npm run test:load-envs prisma migrate dev",
+    "test:migration:reset": "npm run test:load-envs prisma migrate reset",
+    "test:watch": "cross-env NODE_ENV=test jest --watch --passWithNoTests --runInBand",
+    "test:load-envs": "dotenv -e .env.test",
+    "test:seed": "npm run test:load-envs prisma db seed"
   },
   "repository": {
     "type": "git",
@@ -43,7 +49,8 @@
     "http-status": "^1.6.2",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
-    "redis": "^4.6.7"
+    "redis": "^4.6.7",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
