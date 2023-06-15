@@ -5,7 +5,7 @@ import cors from "cors";
 
 import { loadEnv, connectDb, disconnectDB } from "@/config";
 import { handleApplicationErrors } from "./middlewares";
-import { routes } from "./routers";
+import routes from "./routers";
 
 loadEnv();
 

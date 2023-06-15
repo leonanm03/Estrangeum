@@ -4,8 +4,8 @@ import { createUserSchema } from "@/schemas";
 import { validateBody } from "@/middlewares";
 import { postUser } from "@/controllers";
 
-let userRouter = Router();
+const userRouter = Router();
 
 userRouter.post("/create", validateBody(createUserSchema), postUser);
 
-export { userRouter };
+export default userRouter;

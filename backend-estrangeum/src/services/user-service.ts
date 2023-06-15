@@ -1,19 +1,15 @@
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { conflictError } from "@/errors";
-import { CreateUserParams, userRepository } from "@/repositories";
+import { userRepository } from "@/repositories";
 
-async function createUser({
-  name,
-  email,
-  password,
-}: CreateUserParams): Promise<User> {
+async function createUser(data: CreateUserParams): Promise<User> {
+  const { email, password } = data;
   await validateUniqueEmailOrFail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);
   return await userRepository.create({
-    name,
-    email,
+    ...data,
     password: hashedPassword,
   });
 }
@@ -24,6 +20,11 @@ async function validateUniqueEmailOrFail(email: string) {
     throw conflictError("Email already in use");
   }
 }
+
+export type CreateUserParams = Pick<
+  User,
+  "name" | "email" | "password" | "image_url"
+>;
 
 export const userService = {
   createUser,
