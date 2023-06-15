@@ -1,0 +1,19 @@
+import { CreateUserParams } from "@/repositories";
+import { userService } from "@/services";
+import { NextFunction, Request, Response } from "express";
+import httpStatus from "http-status";
+
+export async function postUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const data = req.body as CreateUserParams;
+
+  try {
+    const { id, name, email } = await userService.createUser(data);
+    return res.status(httpStatus.CREATED).send({ id, name, email });
+  } catch (error) {
+    next(error);
+  }
+}
