@@ -1,4 +1,4 @@
-import { CreateUserParams } from "@/repositories";
+import { CreateUserParams } from "@/services";
 import { userService } from "@/services";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
