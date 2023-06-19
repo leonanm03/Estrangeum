@@ -27,7 +27,7 @@ export default function SignupPage() {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Cadastro</title>
       </Head>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
