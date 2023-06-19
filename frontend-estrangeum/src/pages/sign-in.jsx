@@ -1,19 +1,3 @@
-import {
-  Anchor,
-  ButtonBox,
-  FormBody,
-  FormCard,
-  Hero,
-  HeroBody,
-  HeroSideText,
-  HeroSubtitle,
-  HeroTitle,
-  InputBox,
-  InputEntry,
-  LabelBox,
-  LabelText,
-  SubmitButton,
-} from "@/styles/signStyle";
 import Head from "next/head";
 import { useState } from "react";
 
@@ -26,11 +10,6 @@ export default function SigninPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (!body.email || !body.password) {
-      alert("Preencha todos os campos!");
-      return;
-    }
 
     console.log(body);
 
@@ -47,60 +26,64 @@ export default function SigninPage() {
       <Head>
         <title>Login</title>
       </Head>
-      <Hero>
-        <HeroBody>
-          <HeroSideText>
-            <HeroTitle>Faça login agora!</HeroTitle>
-            <HeroSubtitle>
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col lg:flex-row-reverse">
+          <div className="text-center lg:text-left text-primary">
+            <h1 className="text-5xl font-bold">Faça login agora!</h1>
+            <p className="py-6">
               Não compartilhe sua senha com ninguém! A administração não pede
               sua senha!
-            </HeroSubtitle>
-          </HeroSideText>
-          <FormCard>
-            <FormBody onSubmit={handleSubmit}>
-              <InputBox>
-                <LabelBox>
-                  <LabelText>Email</LabelText>
-                </LabelBox>
-                <InputEntry
-                  data-test="email"
+            </p>
+          </div>
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <form onSubmit={handleSubmit} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  className="input input-bordered"
                   disabled={disabled}
                   name="email"
-                  value={body.name}
+                  value={body.email}
                   type="email"
                   placeholder="E-mail"
                   onChange={handleChange}
+                  required
                 />
-              </InputBox>
+              </div>
 
-              <InputBox>
-                <LabelBox>
-                  <LabelText>Senha</LabelText>
-                </LabelBox>
-                <InputEntry
-                  data-test="password"
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Senha</span>
+                </label>
+                <input
+                  className="input input-bordered"
                   disabled={disabled}
                   name="password"
                   value={body.password}
                   type="password"
                   placeholder="Senha"
                   onChange={handleChange}
+                  required
                 />
-              </InputBox>
+              </div>
 
-              <LabelBox>
-                <Anchor href="/sign-up">
+              <label className="label">
+                <a href="/sign-up" className="label-text-alt link link-hover">
                   Não tem uma conta? Cadastre-se agora!
-                </Anchor>
-              </LabelBox>
+                </a>
+              </label>
 
-              <ButtonBox>
-                <SubmitButton>Login</SubmitButton>
-              </ButtonBox>
-            </FormBody>
-          </FormCard>
-        </HeroBody>
-      </Hero>
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-primary">
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
