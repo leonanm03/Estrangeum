@@ -63,8 +63,12 @@ frontend-estrangeum/npm-debug.log*
 frontend-estrangeum/yarn-debug.log*
 frontend-estrangeum/yarn-error.log*
 
-# local env files
-frontend-estrangeum/.env*.local
+# env files
+frontend-estrangeum/.env
+frontend-estrangeum/.env.local
+frontend-estrangeum/.env.test
+frontend-estrangeum/.env.development
+frontend-estrangeum/.env.production
 
 # vercel
 frontend-estrangeum/.vercel
