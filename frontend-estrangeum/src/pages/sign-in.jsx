@@ -1,24 +1,33 @@
+import useSignIn from "@/hooks/api/useSignin";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SigninPage() {
   const [disabled, setDisabled] = useState(false);
+  const { signIn } = useSignIn();
+  const router = useRouter();
   const [body, setBody] = useState({
     email: "",
     password: "",
   });
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    console.log(body);
-
     setDisabled(true);
+
+    const userData = await signIn(body);
+    setDisabled(false);
+
+    if (!userData.user)
+      return alert("Erro ao fazer login! Verifique suas credenciais!");
+
+    alert("Login feito com sucesso!");
+    router.push("/");
   }
 
   function handleChange(e) {
     setBody({ ...body, [e.target.name]: e.target.value });
-    console.log(body);
   }
 
   return (
@@ -76,7 +85,11 @@ export default function SigninPage() {
               </label>
 
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  disabled={disabled}
+                  className="btn btn-primary"
+                >
                   Login
                 </button>
               </div>
