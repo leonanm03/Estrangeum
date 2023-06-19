@@ -1,8 +1,12 @@
+import useSignUp from "@/hooks/api/useSignup";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SignupPage() {
   const [disabled, setDisabled] = useState(false);
+  const { signUp } = useSignUp();
+  const router = useRouter();
   const [body, setBody] = useState({
     name: "",
     email: "",
@@ -11,17 +15,35 @@ export default function SignupPage() {
     image_url: "",
   });
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(body);
+    const { name, email, password, confirmPassword, image_url } = body;
 
-    setDisabled(true);
+    if (password !== confirmPassword) {
+      alert("As senhas devem ser iguais!");
+    } else {
+      setDisabled(true);
+      const request = await signUp({ name, email, password, image_url });
+      setDisabled(false);
+
+      if (request.email) {
+        alert("Inscrito com sucesso! Por favor, faça login.");
+        return router.push("/sign-in");
+      }
+
+      if (request.response?.status === 409)
+        return alert("Este email já está cadastrado!, tente outro.");
+
+      if (request.response?.status === 400)
+        return alert("Preencha os campos corretamente!");
+
+      alert("Erro ao se inscrever, tente novamente mais tarde.");
+    }
   }
 
   function handleChange(e) {
     setBody({ ...body, [e.target.name]: e.target.value });
-    console.log(body);
   }
 
   return (
@@ -111,18 +133,17 @@ export default function SignupPage() {
                 <input
                   className="input input-bordered"
                   disabled={disabled}
-                  name="confirmPassword"
+                  name="image_url"
                   value={body.image_url}
-                  type="password"
+                  type="url"
                   placeholder="avatar url"
                   onChange={handleChange}
-                  required
                 />
               </div>
 
               <label className="label">
                 <a href="/sign-up" className="label-text-alt link link-hover">
-                  Não tem uma conta? Cadastre-se agora!
+                  Já tem uma conta? Faça login!
                 </a>
               </label>
 
