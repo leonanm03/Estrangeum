@@ -33,7 +33,7 @@ model Session {
 model Object {
   id          Int           @id @default(autoincrement())
   name        String        @db.VarChar(255)
-  description String        @db.VarChar(255)
+  description String
   category    Category
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -43,7 +43,7 @@ model Object {
 model ObjectImage {
   id        Int      @id @default(autoincrement())
   object_id Int
-  image_url String   @db.VarChar(255)
+  image_url String
   Object    Object   @relation(fields: [object_id], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,5 +53,6 @@ enum Category {
   ALIEN
   MYSTERY
   HAUNTED
+  MAGIC
   OTHER
 }

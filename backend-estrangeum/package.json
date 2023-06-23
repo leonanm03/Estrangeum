@@ -36,6 +36,9 @@
     "url": "https://github.com/leonanm03/Estrangeum/issues"
   },
   "homepage": "https://github.com/leonanm03/Estrangeum/tree/main#readme",
+  "prisma": {
+    "seed": "npm run dev:load-envs -- ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "@prisma/client": "^4.15.0",
