@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { conflictError } from "@/errors";
 import { userRepository } from "@/repositories";
@@ -21,10 +21,7 @@ async function validateUniqueEmailOrFail(email: string) {
   }
 }
 
-export type CreateUserParams = Pick<
-  User,
-  "name" | "email" | "password" | "image_url"
->;
+export type CreateUserParams = Prisma.UserCreateInput;
 
 export const userService = {
   createUser,
