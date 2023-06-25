@@ -1,12 +1,14 @@
 import { objectRepository } from "@/repositories";
+import { randomizeArray } from "@/utils";
 import { Object, Prisma } from "@prisma/client";
 
 async function createObject(data: CreateObjectParams): Promise<Object> {
   return await objectRepository.create(data);
 }
 
-async function findManyObjects(): Promise<Object[]> {
-  return await objectRepository.findMany();
+async function findManyObjectsWithImage() {
+  const result = await objectRepository.findManyWithImage();
+  return randomizeArray(result);
 }
 
 async function findUniqueObject(
@@ -27,7 +29,7 @@ export type UpdateObjectParams = Prisma.ObjectUncheckedUpdateInput;
 
 export const objectService = {
   createObject,
-  findManyObjects,
+  findManyObjectsWithImage,
   findUniqueObject,
   updateObject,
 };

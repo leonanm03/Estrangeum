@@ -1,5 +1,5 @@
 import { prisma } from "@/config";
-import { Object, Prisma } from "@prisma/client";
+import { Object, ObjectImage, Prisma } from "@prisma/client";
 
 export function create(
   data: Prisma.ObjectUncheckedCreateInput
@@ -9,8 +9,14 @@ export function create(
   });
 }
 
-export function findMany(): Promise<Object[]> {
-  return prisma.object.findMany();
+export function findManyWithImage(): Promise<ObjectsWithImageResult[]> {
+  return prisma.object.findMany({
+    select: {
+      id: true,
+      name: true,
+      ObjectImage: true,
+    },
+  });
 }
 
 export function findUnique(
@@ -31,9 +37,15 @@ export function update(
   });
 }
 
+type ObjectsWithImageResult = {
+  id: number;
+  name: string;
+  ObjectImage: ObjectImage[];
+};
+
 export const objectRepository = {
   create,
-  findMany,
+  findManyWithImage,
   findUnique,
   update,
 };
