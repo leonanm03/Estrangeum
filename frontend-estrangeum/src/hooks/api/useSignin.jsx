@@ -1,4 +1,4 @@
-import * as authApi from "../../services/apiAuth";
+import * as authApi from "@/services/apiAuth";
 import { useAsync } from "../useAsync";
 
 export default function useSignIn() {
