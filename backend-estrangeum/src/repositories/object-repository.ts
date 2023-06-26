@@ -14,6 +14,7 @@ export function findManyWithImage(): Promise<ObjectsWithImageResult[]> {
     select: {
       id: true,
       name: true,
+      category: true,
       ObjectImage: true,
     },
   });
