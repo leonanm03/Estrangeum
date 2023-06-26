@@ -14,3 +14,17 @@ export async function getObjectsWithImage(
     next(error);
   }
 }
+
+export async function getUniqueObject(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.params;
+  try {
+    const object = await objectService.findUniqueObject({ id: parseInt(id) });
+    return res.status(httpStatus.OK).send(object);
+  } catch (error) {
+    next(error);
+  }
+}
