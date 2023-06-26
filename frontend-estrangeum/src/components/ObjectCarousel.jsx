@@ -10,7 +10,7 @@ export function ObjectCarousel({ images }) {
       }}
       className="flex flex-col"
     >
-      <div className="join flex justify-center">
+      <div className="join flex justify-center mt-6">
         {images.map((image) => (
           <button
             key={image.id}
@@ -33,7 +33,7 @@ export function ObjectCarousel({ images }) {
           </button>
         ))}
       </div>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10   px-2">
         <img
           className="shadow-xl shadow-secondary"
           width={500}
