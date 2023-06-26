@@ -1,3 +1,4 @@
+import { ObjectCarousel } from "@/components/ObjectCarousel";
 import useObject from "@/hooks/api/useObject";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -24,5 +25,7 @@ export default function ObjectPage() {
     fetchData();
   }, [id]);
 
-  return <>{id}</>;
+  return (
+    <>{objectData && <ObjectCarousel images={objectData.ObjectImage} />}</>
+  );
 }
