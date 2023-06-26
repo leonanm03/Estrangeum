@@ -10,7 +10,7 @@ export function NavBar() {
 
   function handleToggle(e) {
     if (e.target.checked) {
-      changeTheme("cupcake");
+      changeTheme("garden");
     } else {
       changeTheme("night");
     }
@@ -23,7 +23,7 @@ export function NavBar() {
   }
 
   return (
-    <div className="navbar bg-base-100 shadow-lg text-primary">
+    <div className="navbar flex flex-auto justify-auto  bg-base-100 shadow-lg text-primary">
       <div className="navbar-start">
         <button className="btn btn-square btn-ghost">
           <label className="swap swap-rotate w-12 h-12">
@@ -51,9 +51,8 @@ export function NavBar() {
         </button>
       </div>
 
-      <a href="/" className="link link-hover navbar-center text-2xl font-bold">
-        <img src="/logo.png" className="mr-2.5" alt="logo"></img>
-        Estrangeum
+      <a href="/" className="link link-hover navbar-center text-xl font-bold">
+        <img src="/logo.png" alt="logo"></img>
       </a>
 
       <div className="navbar-end">

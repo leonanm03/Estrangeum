@@ -1,10 +1,9 @@
-import { ObjectCard } from "@/components/ObjectCard";
-import useObjects from "@/hooks/api/useObjects";
+import { Objects } from "@/components/Objects";
 
 export default function Home() {
   return (
     <>
-      <ObjectCard />
+      <Objects />
     </>
   );
 }
