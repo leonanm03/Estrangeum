@@ -4,7 +4,7 @@ export function ObjectCard({ object }) {
 
   return (
     <a href={`object/${id}`}>
-      <div className="card w-96 max-h-96 bg-base-100 shadow-xl shadow-secondary">
+      <div className="card grid content-between w-96 h-96 bg-base-100 shadow-xl shadow-secondary">
         <figure>
           <img className="w-96 " src={image} alt={name} />
         </figure>
