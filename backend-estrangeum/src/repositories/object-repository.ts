@@ -20,11 +20,12 @@ export function findManyWithImage(): Promise<ObjectsWithImageResult[]> {
   });
 }
 
-export function findUnique(
+export function findUniqueWithImage(
   id: Prisma.ObjectWhereUniqueInput
 ): Promise<Object | null> {
   return prisma.object.findUnique({
     where: id,
+    include: { ObjectImage: true },
   });
 }
 
@@ -47,6 +48,6 @@ type ObjectsWithImageResult = {
 export const objectRepository = {
   create,
   findManyWithImage,
-  findUnique,
+  findUniqueWithImage,
   update,
 };

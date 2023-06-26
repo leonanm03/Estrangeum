@@ -14,7 +14,7 @@ async function findManyObjectsWithImage() {
 async function findUniqueObject(
   id: Prisma.ObjectWhereUniqueInput
 ): Promise<Object | null> {
-  return await objectRepository.findUnique(id);
+  return await objectRepository.findUniqueWithImage(id);
 }
 
 async function updateObject(
