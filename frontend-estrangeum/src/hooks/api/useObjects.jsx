@@ -1,6 +1,5 @@
-import useAsync from "../useAsync";
-
 import * as objectsApi from "@/services/apiObjects";
+import { useAsync } from "../useAsync";
 
 export default function useObjects() {
   const {
@@ -8,7 +7,7 @@ export default function useObjects() {
     loading: objectsLoading,
     error: objectsError,
     act: getObjects,
-  } = useAsync(() => objectsApi.getObjects);
+  } = useAsync(objectsApi.getObjects);
 
   return {
     objects,
