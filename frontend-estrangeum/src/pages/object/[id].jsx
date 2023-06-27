@@ -1,5 +1,6 @@
-import { ObjectCarousel } from "@/components/ObjectCarousel";
+import { ObjectDetails } from "@/components";
 import useObject from "@/hooks/api/useObject";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -26,6 +27,11 @@ export default function ObjectPage() {
   }, [id]);
 
   return (
-    <>{objectData && <ObjectCarousel images={objectData.ObjectImage} />}</>
+    <>
+      <Head>
+        <title>{objectData?.name || "Página do objeto"}</title>
+      </Head>
+      {objectData && <ObjectDetails object={objectData} />}
+    </>
   );
 }
