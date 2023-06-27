@@ -3,6 +3,7 @@ import { ImageMagnifier, ZoomIcon } from ".";
 
 export function ObjectDetails({ object }) {
   const [selectedImage, setSelectedImage] = useState(object.ObjectImage[0]);
+  const [showMagnifier, setShowMagnifier] = useState(false);
   return (
     <>
       <section>
@@ -18,8 +19,12 @@ export function ObjectDetails({ object }) {
           <div className="grid gap-8 lg:grid-cols-4 lg:items-start">
             <div className="lg:col-span-3">
               <div className="relative mt-4 flex content-center">
-                <ImageMagnifier src={selectedImage.image_url} />
-                <ZoomIcon />
+                <ImageMagnifier
+                  src={selectedImage.image_url}
+                  showMagnifier={showMagnifier}
+                  setShowMagnifier={setShowMagnifier}
+                />
+                {!showMagnifier && <ZoomIcon />}
               </div>
 
               <ul className="mt-6 flex gap-1">

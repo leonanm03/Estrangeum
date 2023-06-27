@@ -6,11 +6,12 @@ export function ImageMagnifier({
   height,
   magnifierHeight = 200,
   magnifieWidth = 200,
-  zoomLevel = 3,
+  zoomLevel = 2.5,
+  showMagnifier,
+  setShowMagnifier,
 }) {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
-  const [showMagnifier, setShowMagnifier] = useState(false);
   return (
     <div
       style={{
@@ -22,7 +23,7 @@ export function ImageMagnifier({
       <img
         src={src}
         style={{ height: height, width: width }}
-        className="h-72 rounded-xl object-cover lg:h-[540px] shadow-xl shadow-secondary"
+        className="h-72 rounded-xl object-cover lg:h-[540px] shadow-xl shadow-secondary cursor-none "
         onMouseEnter={(e) => {
           // update image size and turn-on magnifier
           const elem = e.currentTarget;
@@ -62,6 +63,7 @@ export function ImageMagnifier({
           left: `${x - magnifieWidth / 2}px`,
           opacity: "1", // reduce opacity so you can verify position
           border: "1px solid lightgray",
+          borderRadius: "50%",
           backgroundImage: `url('${src}')`,
           backgroundRepeat: "no-repeat",
 
