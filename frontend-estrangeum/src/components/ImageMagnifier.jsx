@@ -4,9 +4,9 @@ export function ImageMagnifier({
   src,
   width,
   height,
-  magnifierHeight = 100,
-  magnifieWidth = 100,
-  zoomLevel = 1.5,
+  magnifierHeight = 200,
+  magnifieWidth = 200,
+  zoomLevel = 3,
 }) {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -62,7 +62,6 @@ export function ImageMagnifier({
           left: `${x - magnifieWidth / 2}px`,
           opacity: "1", // reduce opacity so you can verify position
           border: "1px solid lightgray",
-          backgroundColor: "white",
           backgroundImage: `url('${src}')`,
           backgroundRepeat: "no-repeat",
 
