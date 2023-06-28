@@ -4,9 +4,9 @@ export function ImageMagnifier({
   src,
   width,
   height,
-  magnifierHeight = 200,
-  magnifieWidth = 200,
-  zoomLevel = 2.5,
+  magnifierHeight = 300,
+  magnifieWidth = 300,
+  zoomLevel = 2,
   showMagnifier,
   setShowMagnifier,
 }) {
