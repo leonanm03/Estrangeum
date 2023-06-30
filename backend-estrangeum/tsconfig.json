@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "rootDirs": ["src", "tests"],
     "baseUrl": "src",
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["*"]
     },
