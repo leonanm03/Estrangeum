@@ -16,7 +16,8 @@ function Testeup() {
   const imagesListRef = ref(storage, "objects/");
   const uploadFile = () => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `objects/${imageUpload.name + v4()}`);
+    console.log(imageUpload);
+    const imageRef = ref(storage, `objectsteste/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrls((prev) => [...prev, url]);
