@@ -1,4 +1,6 @@
+import uploadFiles from "@/services/storage";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -14,8 +16,12 @@ export default function SubmitItem() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("BODY", body);
-    console.log("IMAGES", images);
+    try {
+      const urls = await uploadFiles(images);
+      console.log(urls);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleChange(e) {
@@ -30,10 +36,9 @@ export default function SubmitItem() {
     setImages(images.filter((image, i) => i !== index));
   }
 
-  function handleChangeImage(e) {
-    const index = e.target.name.split("-")[1];
+  function handleChangeImage(index, e) {
     const newImages = [...images];
-    newImages[index] = e.target.value;
+    newImages[index] = e.target.files[0];
     setImages(newImages);
   }
 
@@ -49,11 +54,11 @@ export default function SubmitItem() {
               Envie seu objeto para o museu!
             </h1>
             <p className="py-6">
-              Diga o nome do objeto, dê sua descrição, escolha a categoria e
+              Escreva o nome do objeto, dê sua descrição, escolha a categoria e
               envie<strong> ao menos 3 (três)</strong> imagens dele.
             </p>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -81,7 +86,7 @@ export default function SubmitItem() {
                   name="description"
                   value={body.description}
                   type="text"
-                  placeholder="Insira a descrição do objeto"
+                  placeholder="Escreva uma breve história sobre o objeto"
                   onChange={handleChange}
                   required
                 />
@@ -105,15 +110,28 @@ export default function SubmitItem() {
               </div>
 
               {images.map((image, index) => (
-                <input
-                  type="file"
-                  className="file-input file-input-bordered file-input w-full"
-                  key={index}
-                  name={`image-${index}`}
-                  value={image}
-                  onChange={handleChangeImage}
-                  required
-                />
+                <div key={index} className="form-control">
+                  <label className="label">
+                    <span className="label-text">Imagem {index + 1}</span>
+                  </label>
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered file-input w-full"
+                    name={`image-${index}`}
+                    onChange={(e) => handleChangeImage(index, e)}
+                    required
+                  />
+                  {image && (
+                    <div className="mt-2">
+                      <Image
+                        src={URL.createObjectURL(image)}
+                        alt={`Imagem ${index + 1}`}
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+                  )}
+                </div>
               ))}
 
               {images.length > 3 && (
