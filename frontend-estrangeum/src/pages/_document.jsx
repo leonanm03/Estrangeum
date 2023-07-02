@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html data-theme="corporate" className="bg-base-200" lang="en">
+    <Html data-theme="night" className="bg-base-200" lang="en">
       <Head>
         <link rel="icon" href="/logo.png" />
       </Head>
