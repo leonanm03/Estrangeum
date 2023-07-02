@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 export default function ObjectPage() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
   const { getObject } = useObject();
   const [objectData, setObjectData] = useState(null);
 
@@ -16,7 +15,6 @@ export default function ObjectPage() {
       if (id !== undefined) {
         try {
           const object = await getObject(id);
-          console.log(object);
           setObjectData(object);
         } catch (error) {
           console.log(error);
