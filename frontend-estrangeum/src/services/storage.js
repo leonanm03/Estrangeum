@@ -5,9 +5,13 @@ import { v4 as uuid } from "uuid";
 export default async function uploadFiles(files) {
   const urls = [];
   const promises = [];
+  const folder = uuid();
 
   files.forEach((file) => {
-    const storageRef = ref(storage, `objects/${file.name}${uuid()}`);
+    const storageRef = ref(
+      storage,
+      `objects/${folder}/${file.name}${uuid().slice(0, 4)}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     promises.push(
