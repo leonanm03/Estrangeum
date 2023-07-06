@@ -1,5 +1,5 @@
 import { prisma } from "@/config";
-import { Object, ObjectImage, Prisma } from "@prisma/client";
+import { Category, Object, ObjectImage, Prisma } from "@prisma/client";
 
 export function create(data: ObjectCreateInput): Promise<Object> {
   return prisma.object.create({
@@ -35,7 +35,7 @@ export function findUniqueWithImage(
 export type ObjectCreateInput = {
   name: string;
   description: string;
-  category: "ALIEN" | "MAGIC" | "HAUNTED" | "MYSTERY";
+  category: Category;
   ObjectImage: string[];
 };
 

@@ -29,6 +29,12 @@ export function handleApplicationErrors(
         message: err.message,
       });
 
+    case "NotFoundError":
+      return res.status(httpStatus.NOT_FOUND).send({
+        error: err.name,
+        message: err.message,
+      });
+
     default:
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
         error: "InternalServerError",

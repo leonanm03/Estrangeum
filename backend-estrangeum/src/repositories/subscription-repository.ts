@@ -3,7 +3,7 @@ import {
   Subscription,
   SubscriptionImage,
   Status,
-  Prisma,
+  Category,
 } from "@prisma/client";
 
 function create(data: SubscriptionCreateInput): Promise<Subscription> {
@@ -54,7 +54,7 @@ export type SubscriptionCreateInput = {
   user_id: number;
   name: string;
   description: string;
-  category: "ALIEN" | "MAGIC" | "HAUNTED" | "MYSTERY";
+  category: Category;
   ObjectImage: string[];
 };
 

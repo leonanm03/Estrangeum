@@ -1,8 +1,10 @@
+import { notFoundError } from "@/errors";
 import {
   Status,
   SubscriptionCreateInput,
   subscriptionRepository,
 } from "@/repositories";
+import { objectService } from "./object-service";
 
 async function createSubscription(data: SubscriptionCreateInput) {
   return await subscriptionRepository.create(data);
@@ -17,6 +19,20 @@ async function findPendingWithImages() {
 }
 
 async function approveSubscription(id: number) {
+  const subscription = await subscriptionRepository.findByIdWithImages(id);
+  if (!subscription) {
+    throw notFoundError();
+  }
+
+  const { name, description, category, SubscriptionImage } = subscription;
+
+  await objectService.createObject({
+    name,
+    description,
+    category,
+    ObjectImage: SubscriptionImage.map((image) => image.image_url),
+  });
+
   return changeStatus(id, "APPROVED");
 }
 
@@ -32,4 +48,6 @@ export const subscriptionService = {
   createSubscription,
   findByIdWithImages,
   findPendingWithImages,
+  approveSubscription,
+  rejectSubscription,
 };
