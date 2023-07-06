@@ -1,7 +1,12 @@
 import { prisma } from "@/config";
-import { Subscription, SubscriptionImage, Status } from "@prisma/client";
+import {
+  Subscription,
+  SubscriptionImage,
+  Status,
+  Prisma,
+} from "@prisma/client";
 
-export function create(data: SubscriptionCreateInput): Promise<Subscription> {
+function create(data: SubscriptionCreateInput): Promise<Subscription> {
   return prisma.subscription.create({
     data: {
       ...data,
@@ -12,7 +17,7 @@ export function create(data: SubscriptionCreateInput): Promise<Subscription> {
   });
 }
 
-export function findByIdWithImages(id: number): Promise<
+function findByIdWithImages(id: number): Promise<
   Subscription & {
     SubscriptionImage: SubscriptionImage[];
   }
@@ -25,22 +30,20 @@ export function findByIdWithImages(id: number): Promise<
   });
 }
 
-export function changeStatus(
-  id: number,
-  status: Status
-): Promise<Subscription> {
+function changeStatus(id: number, status: Status): Promise<Subscription> {
   return prisma.subscription.update({
     where: { id },
     data: { status },
   });
 }
 
-export function findManyWithImages(): Promise<
+function findPendingWithImages(): Promise<
   (Subscription & {
     SubscriptionImage: SubscriptionImage[];
   })[]
 > {
   return prisma.subscription.findMany({
+    where: { status: "PENDING" },
     include: {
       SubscriptionImage: true,
     },
@@ -55,6 +58,11 @@ export type SubscriptionCreateInput = {
   ObjectImage: string[];
 };
 
+export { Status };
+
 export const subscriptionRepository = {
   create,
+  findByIdWithImages,
+  changeStatus,
+  findPendingWithImages,
 };

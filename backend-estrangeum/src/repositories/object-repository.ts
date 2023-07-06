@@ -1,11 +1,14 @@
 import { prisma } from "@/config";
 import { Object, ObjectImage, Prisma } from "@prisma/client";
 
-export function create(
-  data: Prisma.ObjectUncheckedCreateInput
-): Promise<Object> {
+export function create(data: ObjectCreateInput): Promise<Object> {
   return prisma.object.create({
-    data,
+    data: {
+      ...data,
+      ObjectImage: {
+        create: data.ObjectImage.map((image) => ({ image_url: image })),
+      },
+    },
   });
 }
 
@@ -29,15 +32,12 @@ export function findUniqueWithImage(
   });
 }
 
-export function update(
-  id: Prisma.ObjectWhereUniqueInput,
-  data: Prisma.ObjectUncheckedUpdateInput
-): Promise<Object> {
-  return prisma.object.update({
-    where: id,
-    data,
-  });
-}
+export type ObjectCreateInput = {
+  name: string;
+  description: string;
+  category: "ALIEN" | "MAGIC" | "HAUNTED" | "MYSTERY";
+  ObjectImage: string[];
+};
 
 type ObjectsWithImageResult = {
   id: number;
@@ -49,5 +49,4 @@ export const objectRepository = {
   create,
   findManyWithImage,
   findUniqueWithImage,
-  update,
 };
