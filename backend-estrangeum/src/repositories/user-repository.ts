@@ -1,10 +1,16 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, UserType } from "@prisma/client";
 import { prisma } from "@/config";
 import { User } from "@prisma/client";
 
-async function create(data: Prisma.UserUncheckedCreateInput): Promise<User> {
+async function create(
+  data: Prisma.UserUncheckedCreateInput,
+  type?: UserType
+): Promise<User> {
   return prisma.user.create({
-    data,
+    data: {
+      ...data,
+      type: type || "USER",
+    },
   });
 }
 

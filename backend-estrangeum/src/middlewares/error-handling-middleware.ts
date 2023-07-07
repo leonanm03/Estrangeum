@@ -35,6 +35,12 @@ export function handleApplicationErrors(
         message: err.message,
       });
 
+    case "UnauthorizedError":
+      return res.status(httpStatus.UNAUTHORIZED).send({
+        error: err.name,
+        message: err.message,
+      });
+
     default:
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
         error: "InternalServerError",
