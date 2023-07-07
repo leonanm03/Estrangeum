@@ -4,8 +4,9 @@ import * as jwt from "jsonwebtoken";
 
 import { unauthorizedError } from "@/errors";
 import { prisma } from "@/config";
+import { AuthenticatedRequest, JWTPayload } from "./authentication-middleware";
 
-export async function authenticateToken(
+export async function authenticateAdminToken(
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
@@ -26,6 +27,14 @@ export async function authenticateToken(
     });
     if (!session) return generateUnauthorizedResponse(res);
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: user_id,
+      },
+    });
+    if (!user || user.type !== "ADMIN")
+      return generateUnauthorizedResponse(res);
+
     req.user_id = user_id;
 
     return next();
@@ -37,9 +46,3 @@ export async function authenticateToken(
 function generateUnauthorizedResponse(res: Response) {
   res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError());
 }
-
-export type AuthenticatedRequest = Request & JWTPayload;
-
-export type JWTPayload = {
-  user_id: number;
-};
