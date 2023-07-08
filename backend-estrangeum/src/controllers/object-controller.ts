@@ -1,4 +1,4 @@
-import { objectService } from "@/services/object-service";
+import { objectService } from "@/services";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 
