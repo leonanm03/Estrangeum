@@ -23,11 +23,15 @@ const subscriptionRouter = Router();
 subscriptionRouter
   .all("*", authenticateToken)
   .post("/", validateBody(SubscriptionPostSchema), createSubscription)
-  .get("/:id", validateParams(SubscriptionIdParamSchema), findSubscriptionById)
+  .get(
+    "/id/:id",
+    validateParams(SubscriptionIdParamSchema),
+    findSubscriptionById
+  )
   .get("/my-items", findUserSubscriptions)
   .all("*", authenticateAdmin)
   .get("/pending", getPendingSubscriptions)
-  .post(
+  .put(
     "/approve/:id",
     validateParams(SubscriptionIdParamSchema),
     approveSubscription

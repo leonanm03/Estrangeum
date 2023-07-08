@@ -2,7 +2,7 @@ import { ApplicationError } from "@/protocols";
 
 export function unauthorizedError(): ApplicationError {
   return {
-    name: "unauthorizedError",
+    name: "UnauthorizedError",
     message: "unauthorized",
   };
 }

@@ -31,7 +31,6 @@ export async function createSubscription(
     });
     return res.status(httpStatus.CREATED).send(subscription);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 }
@@ -41,9 +40,13 @@ export async function findSubscriptionById(
   res: Response,
   next: NextFunction
 ) {
+  const { user_id } = req;
   const id = parseInt(req.params.id);
   try {
-    const subscription = await subscriptionService.findByIdWithImages(id);
+    const subscription = await subscriptionService.findByIdWithImages(
+      id,
+      user_id
+    );
     return res.status(httpStatus.OK).send(subscription);
   } catch (error) {
     next(error);

@@ -14,6 +14,20 @@ async function create(
   });
 }
 
+async function findById(id: number, select?: Prisma.UserSelect) {
+  const params: Prisma.UserFindUniqueArgs = {
+    where: {
+      id,
+    },
+  };
+
+  if (select) {
+    params.select = select;
+  }
+
+  return prisma.user.findUnique(params);
+}
+
 async function findByEmail(email: string, select?: Prisma.UserSelect) {
   const params: Prisma.UserFindUniqueArgs = {
     where: {
@@ -31,4 +45,5 @@ async function findByEmail(email: string, select?: Prisma.UserSelect) {
 export const userRepository = {
   create,
   findByEmail,
+  findById,
 };

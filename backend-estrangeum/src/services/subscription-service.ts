@@ -1,8 +1,9 @@
-import { notFoundError } from "@/errors";
+import { notFoundError, unauthorizedError } from "@/errors";
 import {
   Status,
   SubscriptionCreateInput,
   subscriptionRepository,
+  userRepository,
 } from "@/repositories";
 import { objectService } from "./object-service";
 
@@ -10,8 +11,17 @@ async function createSubscription(data: SubscriptionCreateInput) {
   return await subscriptionRepository.create(data);
 }
 
-async function findByIdWithImages(id: number) {
-  return await subscriptionRepository.findByIdWithImages(id);
+async function findByIdWithImages(id: number, user_id: number) {
+  const item = await subscriptionRepository.findByIdWithImages(id);
+  if (!item) throw notFoundError();
+
+  const user = await userRepository.findById(user_id);
+  if (!user) throw notFoundError();
+
+  if (item.user_id !== user_id && user.type !== "ADMIN")
+    throw unauthorizedError();
+
+  return item;
 }
 
 async function findPendingWithImages() {
