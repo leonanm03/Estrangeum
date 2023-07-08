@@ -1,4 +1,4 @@
-import uploadFiles from "@/services/storage";
+import { uploadFiles } from "@/services/storage";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";

@@ -2,20 +2,19 @@ import { storage } from "@/firebase/initFirebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
-export default async function uploadFiles(files) {
+export async function uploadFiles(files) {
   const urls = [];
-  const promises = [];
   const folder = uuid();
 
-  files.forEach((file) => {
-    const storageRef = ref(
-      storage,
-      `objects/${folder}/${file.name}${uuid().slice(0, 4)}`
-    );
-    const uploadTask = uploadBytesResumable(storageRef, file);
+  const uploadPromises = files.map((file) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const storageRef = ref(
+          storage,
+          `objects/${folder}/${file.name}${uuid().slice(0, 4)}`
+        );
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-    promises.push(
-      new Promise((resolve, reject) => {
         uploadTask.on(
           "state_changed",
           (progress) => {},
@@ -32,12 +31,14 @@ export default async function uploadFiles(files) {
             }
           }
         );
-      })
-    );
+      } catch (error) {
+        reject(error);
+      }
+    });
   });
 
   try {
-    await Promise.all(promises);
+    await Promise.all(uploadPromises);
     return urls;
   } catch (error) {
     console.log(error);
