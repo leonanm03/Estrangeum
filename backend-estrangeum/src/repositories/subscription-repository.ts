@@ -11,7 +11,7 @@ function create(data: SubscriptionCreateInput): Promise<Subscription> {
     data: {
       ...data,
       SubscriptionImage: {
-        create: data.ObjectImage.map((image) => ({ image_url: image })),
+        create: data.SubscriptionImage.map((image) => ({ image_url: image })),
       },
     },
   });
@@ -24,6 +24,19 @@ function findByIdWithImages(id: number): Promise<
 > {
   return prisma.subscription.findUnique({
     where: { id },
+    include: {
+      SubscriptionImage: true,
+    },
+  });
+}
+
+function findUserSubscriptionsWithImages(id: number): Promise<
+  (Subscription & {
+    SubscriptionImage: SubscriptionImage[];
+  })[]
+> {
+  return prisma.subscription.findMany({
+    where: { user_id: id },
     include: {
       SubscriptionImage: true,
     },
@@ -55,7 +68,7 @@ export type SubscriptionCreateInput = {
   name: string;
   description: string;
   category: Category;
-  ObjectImage: string[];
+  SubscriptionImage: string[];
 };
 
 export { Status };
@@ -65,4 +78,5 @@ export const subscriptionRepository = {
   findByIdWithImages,
   changeStatus,
   findPendingWithImages,
+  findUserSubscriptionsWithImages,
 };

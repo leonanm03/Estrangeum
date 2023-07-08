@@ -1,4 +1,4 @@
-import { ObjectCreateInput } from "@/repositories";
+import { SubscriptionCreateInput } from "@/repositories";
 import Joi from "joi";
 
 export const SubscriptionIdParamSchema = Joi.object<{ id: string }>({
@@ -7,11 +7,11 @@ export const SubscriptionIdParamSchema = Joi.object<{ id: string }>({
     .required(),
 });
 
-export const SubscriptionPostSchema = Joi.object<ObjectCreateInput>({
+export const SubscriptionPostSchema = Joi.object<SubscriptionCreateInput>({
   name: Joi.string().min(2).required(),
   description: Joi.string().min(2).required(),
   category: Joi.string()
     .valid("HAUNTED", "ALIEN", "MYSTERY", "MAGIC")
     .required(),
-  ObjectImage: Joi.array().items(Joi.string().uri()),
+  SubscriptionImage: Joi.array().items(Joi.string().uri()).min(3).required(),
 });

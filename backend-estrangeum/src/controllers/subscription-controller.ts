@@ -31,6 +31,7 @@ export async function createSubscription(
     });
     return res.status(httpStatus.CREATED).send(subscription);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 }

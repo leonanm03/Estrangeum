@@ -6,7 +6,7 @@ import {
   rejectSubscription,
 } from "@/controllers";
 import {
-  authenticateAdminToken,
+  authenticateAdmin,
   authenticateToken,
   validateBody,
   validateParams,
@@ -23,7 +23,7 @@ subscriptionRouter
   .all("*", authenticateToken)
   .post("/", validateBody(SubscriptionPostSchema), createSubscription)
   .get("/:id", validateParams(SubscriptionIdParamSchema), findSubscriptionById)
-  .all("*", authenticateAdminToken)
+  .all("*", authenticateAdmin)
   .get("/pending", getPendingSubscriptions)
   .post(
     "/approve/:id",
