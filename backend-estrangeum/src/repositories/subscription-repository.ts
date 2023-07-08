@@ -30,13 +30,13 @@ function findByIdWithImages(id: number): Promise<
   });
 }
 
-function findUserSubscriptionsWithImages(id: number): Promise<
+function findUserSubscriptionsWithImages(user_id: number): Promise<
   (Subscription & {
     SubscriptionImage: SubscriptionImage[];
   })[]
 > {
   return prisma.subscription.findMany({
-    where: { user_id: id },
+    where: { user_id },
     include: {
       SubscriptionImage: true,
     },

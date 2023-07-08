@@ -77,3 +77,18 @@ export async function rejectSubscription(
     next(error);
   }
 }
+
+export async function findUserSubscriptions(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const { user_id } = req;
+  try {
+    const subscriptions =
+      await subscriptionService.findUserSubscriptionsWithImages(user_id);
+    return res.status(httpStatus.OK).send(subscriptions);
+  } catch (error) {
+    next(error);
+  }
+}

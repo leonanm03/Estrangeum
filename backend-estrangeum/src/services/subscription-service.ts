@@ -44,10 +44,15 @@ async function changeStatus(id: number, status: Status) {
   return await subscriptionRepository.changeStatus(id, status);
 }
 
+async function findUserSubscriptionsWithImages(user_id: number) {
+  return await subscriptionRepository.findUserSubscriptionsWithImages(user_id);
+}
+
 export const subscriptionService = {
   createSubscription,
   findByIdWithImages,
   findPendingWithImages,
   approveSubscription,
   rejectSubscription,
+  findUserSubscriptionsWithImages,
 };

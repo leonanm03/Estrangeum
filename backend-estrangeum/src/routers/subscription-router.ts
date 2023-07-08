@@ -2,6 +2,7 @@ import {
   approveSubscription,
   createSubscription,
   findSubscriptionById,
+  findUserSubscriptions,
   getPendingSubscriptions,
   rejectSubscription,
 } from "@/controllers";
@@ -23,6 +24,7 @@ subscriptionRouter
   .all("*", authenticateToken)
   .post("/", validateBody(SubscriptionPostSchema), createSubscription)
   .get("/:id", validateParams(SubscriptionIdParamSchema), findSubscriptionById)
+  .get("/my-items", findUserSubscriptions)
   .all("*", authenticateAdmin)
   .get("/pending", getPendingSubscriptions)
   .post(
