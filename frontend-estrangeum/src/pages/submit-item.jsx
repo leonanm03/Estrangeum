@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function SubmitItem() {
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [body, setBody] = useState({
     name: "",
@@ -16,12 +17,17 @@ export default function SubmitItem() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setDisabled(true);
+    setLoading(true);
+    window.my_modal_1.showModal();
     try {
       const urls = await uploadFiles(images);
       console.log(urls);
     } catch (error) {
       console.log(error);
     }
+    setDisabled(false);
+    setLoading(false);
   }
 
   function handleChange(e) {
@@ -47,6 +53,22 @@ export default function SubmitItem() {
       <Head>
         <title>Enviar Objeto</title>
       </Head>
+      <dialog id="my_modal_1" className="modal">
+        <form method="dialogue" className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">
+            {loading ? "Enviando seu objeto..." : "Objeto enviado com sucesso!"}
+          </p>
+          {loading ? (
+            <span className="loading loading-spinner loading-lg"></span>
+          ) : (
+            <div className="modal-action">
+              <button className="btn">Close</button>
+            </div>
+          )}
+        </form>
+      </dialog>
+
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left text-primary">
@@ -101,6 +123,7 @@ export default function SubmitItem() {
                   className="select select-bordered w-full"
                   onChange={handleChange}
                   defaultValue={body.category}
+                  disabled={disabled}
                 >
                   <option>MAGIC</option>
                   <option>ALIEN</option>
@@ -119,6 +142,7 @@ export default function SubmitItem() {
                     className="file-input file-input-bordered file-input w-full"
                     name={`image-${index}`}
                     onChange={(e) => handleChangeImage(index, e)}
+                    disabled={disabled}
                     required
                   />
                   {image && (
@@ -140,6 +164,7 @@ export default function SubmitItem() {
                     onClick={() => removeImageInput(images.length - 1)}
                     type="button"
                     className="btn btn-100"
+                    disabled={disabled}
                   >
                     Remover imagem
                   </button>
@@ -150,13 +175,18 @@ export default function SubmitItem() {
                   onClick={addImageInput}
                   type="button"
                   className="btn btn-100"
+                  disabled={disabled}
                 >
                   Adicionar imagem
                 </button>
               </div>
 
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  disabled={disabled}
+                  className="btn btn-primary"
+                >
                   Enviar meu objeto
                 </button>
               </div>
