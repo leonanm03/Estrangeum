@@ -28,6 +28,7 @@ async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
     password: true,
     name: true,
     image_url: true,
+    type: true,
   });
   if (!user) throw invalidCredentialsError();
 
@@ -52,13 +53,13 @@ async function validatePasswordOrFail(password: string, userPassword: string) {
 export type SignInParams = Pick<User, "email" | "password">;
 
 type SignInResult = {
-  user: Pick<User, "id" | "email" | "image_url" | "name">;
+  user: Pick<User, "id" | "email" | "image_url" | "name" | "type">;
   token: string;
 };
 
 type GetUserOrFailResult = Pick<
   User,
-  "id" | "email" | "password" | "name" | "image_url"
+  "id" | "email" | "password" | "name" | "image_url" | "type"
 >;
 
 export const authenticationService = {
