@@ -2,7 +2,7 @@ import { storage } from "@/firebase/initFirebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
-export async function uploadFiles(files) {
+export async function uploadObjects(files) {
   const urls = [];
   const folder = uuid();
 
