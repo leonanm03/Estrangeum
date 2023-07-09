@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
 import { useEffect } from "react";
 
-export const AuthContext = createContext();
+export const UserContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,45 +20,42 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (data) => {
-    const loggedUser = data;
+  const storeUser = (data) => {
+    console.log("guardando usuário");
+    console.log(data);
+    const loggedUser = data.user;
     const token = data.token;
-    delete loggedUser.token;
+
+    console.log("logged user:", loggedUser);
+    console.log("token:", token);
 
     localStorage.setItem("user", JSON.stringify(loggedUser));
     localStorage.setItem("tokenUser", JSON.stringify(token));
 
     setUser(loggedUser);
     setToken(token);
-    if (backToCart) {
-      navigate("/carrinho");
-      return setBackToCart(false);
-    }
-    navigate("/");
   };
 
-  const logout = () => {
+  const resetUser = () => {
     console.log("Você saiu!");
     localStorage.removeItem("user");
     localStorage.removeItem("tokenUser");
     setUser(null);
     setToken(null);
-    navigate("/");
   };
 
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{
         authenticated: !!user,
         user,
         token,
-        login,
+        storeUser,
         loading,
-        setBackToCart,
-        logout,
+        resetUser,
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
