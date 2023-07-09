@@ -1,4 +1,4 @@
-import uploadFiles from "@/services/storage";
+import { uploadObjects } from "@/services/storage";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ export default function SubmitItem() {
     setLoading(true);
     window.my_modal_1.showModal();
     try {
-      const urls = await uploadFiles(images);
+      const urls = await uploadObjects(images);
       console.log(urls);
     } catch (error) {
       console.log(error);

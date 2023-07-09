@@ -1,7 +1,8 @@
+import { UserContext } from "@/contexts/userContext";
 import useSignIn from "@/hooks/api/useSignin";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function SigninPage() {
   const [disabled, setDisabled] = useState(false);
@@ -11,6 +12,7 @@ export default function SigninPage() {
     email: "",
     password: "",
   });
+  const { storeUser } = useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,6 +23,8 @@ export default function SigninPage() {
 
     if (!userData.user)
       return alert("Erro ao fazer login! Verifique suas credenciais!");
+
+    storeUser(userData);
 
     alert("Login feito com sucesso!");
     router.push("/");

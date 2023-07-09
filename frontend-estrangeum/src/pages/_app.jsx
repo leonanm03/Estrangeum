@@ -1,4 +1,5 @@
 import { NavBar } from "@/components";
+import { UserProvider } from "@/contexts/userContext";
 import "@/styles/globals.css";
 import Head from "next/head";
 
@@ -9,7 +10,9 @@ export default function App({ Component, pageProps }) {
         <title>Estrangeum</title>
       </Head>
       <NavBar />
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   );
 }
