@@ -21,13 +21,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const storeUser = (data) => {
-    console.log("guardando usuário");
     console.log(data);
     const loggedUser = data.user;
     const token = data.token;
-
-    console.log("logged user:", loggedUser);
-    console.log("token:", token);
 
     localStorage.setItem("user", JSON.stringify(loggedUser));
     localStorage.setItem("tokenUser", JSON.stringify(token));
