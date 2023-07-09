@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { sun, moon } from "../assets";
 import { UserContext } from "@/contexts/userContext";
-
+import { Menu } from "./Menu";
 export function NavBar() {
   const { user } = useContext(UserContext);
   const [theme, setTheme] = useState("");
-  console.log(user);
 
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
@@ -71,8 +70,9 @@ export function NavBar() {
         </div>
       ) : (
         <div className="navbar-end">
+          <Menu />
           <div className="avatar">
-            <div className="w-16 rounded-full">
+            <div className="w-12 rounded-full">
               <img src={user.image_url || "/noprofile.jpg"} alt="avatar" />
             </div>
           </div>
