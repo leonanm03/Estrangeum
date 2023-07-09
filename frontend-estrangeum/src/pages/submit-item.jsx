@@ -87,7 +87,7 @@ export default function SubmitItem() {
                   <span className="label-text">Nome</span>
                 </label>
                 <input
-                  className="input input-bordered"
+                  className="input input-bordered text-primary"
                   disabled={disabled}
                   name="name"
                   value={body.name}
@@ -103,7 +103,7 @@ export default function SubmitItem() {
                   <span className="label-text ">Descrição</span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered"
+                  className="textarea textarea-bordered text-primary"
                   disabled={disabled}
                   name="description"
                   value={body.description}
@@ -120,7 +120,7 @@ export default function SubmitItem() {
                 </label>
                 <select
                   name="category"
-                  className="select select-bordered w-full"
+                  className="select select-bordered w-full text-primary"
                   onChange={handleChange}
                   defaultValue={body.category}
                   disabled={disabled}
@@ -139,14 +139,14 @@ export default function SubmitItem() {
                   </label>
                   <input
                     type="file"
-                    className="file-input file-input-bordered file-input w-full"
+                    className="file-input file-input-bordered file-input w-full text-primary"
                     name={`image-${index}`}
                     onChange={(e) => handleChangeImage(index, e)}
                     disabled={disabled}
                     required
                   />
                   {image && (
-                    <div className="mt-2">
+                    <div className="mt-2  text-primary">
                       <Image
                         src={URL.createObjectURL(image)}
                         alt={`Imagem ${index + 1}`}
