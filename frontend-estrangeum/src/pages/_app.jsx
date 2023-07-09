@@ -11,8 +11,8 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Estrangeum</title>
       </Head>
-      <NavBar />
       <UserProvider>
+        <NavBar />
         <Component {...pageProps} />
       </UserProvider>
       <ToastContainer />
