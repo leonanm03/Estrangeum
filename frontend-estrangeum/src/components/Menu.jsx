@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 
 export function Menu() {
-  const { user } = useContext(UserContext);
+  const { user, resetUser } = useContext(UserContext);
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn m-1 bg-base-100 text-primary">
@@ -24,6 +24,9 @@ export function Menu() {
             <a href="/pending">Objetos Pendentes</a>
           </li>
         )}
+        <li onClick={resetUser}>
+          <a>Sair</a>
+        </li>
       </ul>
     </div>
   );
