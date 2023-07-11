@@ -1,13 +1,17 @@
+import { UserContext } from "@/contexts/userContext";
+import usePostSubscription from "@/hooks/api/usePostSubscription";
 import { uploadObjects } from "@/services/storage";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function SubmitItem() {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { token } = useContext(UserContext);
+  const { postSubscription } = usePostSubscription();
   const [body, setBody] = useState({
     name: "",
     description: "",
@@ -21,8 +25,8 @@ export default function SubmitItem() {
     setLoading(true);
     window.my_modal_1.showModal();
     try {
-      const urls = await uploadObjects(images);
-      console.log(urls);
+      const SubscriptionImage = await uploadObjects(images);
+      await postSubscription({ ...body, SubscriptionImage }, token);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +61,9 @@ export default function SubmitItem() {
         <form method="dialogue" className="modal-box">
           <h3 className="font-bold text-lg">Hello!</h3>
           <p className="py-4">
-            {loading ? "Enviando seu objeto..." : "Objeto enviado com sucesso!"}
+            {loading
+              ? "Enviando seu objeto..."
+              : `${body.name} enviado com sucesso!`}
           </p>
           {loading ? (
             <span className="loading loading-spinner loading-lg"></span>
