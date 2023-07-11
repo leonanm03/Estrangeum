@@ -1,5 +1,7 @@
 import useSignUp from "@/hooks/api/useSignup";
+import { uploadProfile } from "@/services/storage";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -15,16 +17,19 @@ export default function SignupPage() {
     confirmPassword: "",
     image_url: "",
   });
+  const [profile, setProfile] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const { name, email, password, confirmPassword, image_url } = body;
+    const { name, email, password, confirmPassword } = body;
 
     if (password !== confirmPassword) {
       toast.error("As senhas devem ser iguais!");
     } else {
       setDisabled(true);
+
+      const image_url = await uploadProfile(profile);
       const request = await signUp({ name, email, password, image_url });
       setDisabled(false);
 
@@ -32,19 +37,21 @@ export default function SignupPage() {
         toast.success("Inscrito com sucesso! Por favor, faça login.");
         return router.push("/sign-in");
       }
-
       if (request.response?.status === 409)
         return toast.error("Este email já está cadastrado!, tente outro.");
-
       if (request.response?.status === 400)
         return toast.error("Preencha os campos corretamente!");
-
       toast.error("Erro ao se inscrever, tente novamente mais tarde.");
     }
   }
 
   function handleChange(e) {
     setBody({ ...body, [e.target.name]: e.target.value });
+  }
+
+  function handleChangeProfile(e) {
+    console.log(e.target.files[0]);
+    setProfile(e.target.files[0]);
   }
 
   return (
@@ -126,20 +133,28 @@ export default function SignupPage() {
                   required
                 />
               </div>
-
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Avatar</span>
+                  <span className="label-text">Imagem de perfil</span>
                 </label>
                 <input
-                  className="input input-bordered"
+                  type="file"
+                  className="file-input file-input-bordered file-input w-full text-primary"
+                  name="profile"
+                  onChange={(e) => handleChangeProfile(e)}
                   disabled={disabled}
-                  name="image_url"
-                  value={body.image_url}
-                  type="url"
-                  placeholder="avatar url"
-                  onChange={handleChange}
+                  required
                 />
+                {profile && (
+                  <div className="mt-2  text-primary">
+                    <Image
+                      src={URL.createObjectURL(profile)}
+                      alt="profile"
+                      width={200}
+                      height={200}
+                    />
+                  </div>
+                )}
               </div>
 
               <label className="label">
@@ -150,7 +165,7 @@ export default function SignupPage() {
 
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
-                  Login
+                  Cadastrar
                 </button>
               </div>
             </form>
