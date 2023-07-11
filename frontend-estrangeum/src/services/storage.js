@@ -45,3 +45,17 @@ export async function uploadObjects(files) {
     throw error;
   }
 }
+
+export async function uploadProfile(file) {
+  const storageRef = ref(storage, `profiles/${file.name}${uuid().slice(0, 4)}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  try {
+    await uploadTask;
+    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+    return downloadURL;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
