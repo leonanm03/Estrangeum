@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext();
 
@@ -21,7 +22,6 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const storeUser = (data) => {
-    console.log(data);
     const loggedUser = data.user;
     const token = data.token;
 
@@ -33,11 +33,12 @@ export const UserProvider = ({ children }) => {
   };
 
   const resetUser = () => {
-    console.log("Você saiu!");
+    toast(`Volte sempre, ${user.name}!`);
     localStorage.removeItem("user");
     localStorage.removeItem("tokenUser");
     setUser(null);
     setToken(null);
+    toast("Logout efetuado com sucesso!");
   };
 
   return (

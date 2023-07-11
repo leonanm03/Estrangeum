@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { sun, moon } from "../assets";
-
+import { UserContext } from "@/contexts/userContext";
+import { Menu } from "./Menu";
 export function NavBar() {
+  const { user } = useContext(UserContext);
   const [theme, setTheme] = useState("");
+
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     changeTheme(localTheme || "night");
@@ -55,15 +58,26 @@ export function NavBar() {
         <img src="/logo.png" alt="logo"></img>
       </a>
 
-      <div className="navbar-end">
-        <a href="/sign-in" className="link link-hover mr-2.5">
-          login
-        </a>
-        /
-        <a href="/sign-up" className="link link-hover ml-2.5">
-          cadastro
-        </a>
-      </div>
+      {!user ? (
+        <div className="navbar-end">
+          <a href="/sign-in" className="link link-hover mr-2.5">
+            login
+          </a>
+          /
+          <a href="/sign-up" className="link link-hover ml-2.5">
+            cadastro
+          </a>
+        </div>
+      ) : (
+        <div className="navbar-end">
+          <Menu />
+          <div className="avatar">
+            <div className="w-12 rounded-full">
+              <img src={user.image_url || "/noprofile.jpg"} alt="avatar" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

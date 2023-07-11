@@ -2,6 +2,7 @@ import useSignUp from "@/hooks/api/useSignup";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SignupPage() {
   const [disabled, setDisabled] = useState(false);
@@ -21,24 +22,24 @@ export default function SignupPage() {
     const { name, email, password, confirmPassword, image_url } = body;
 
     if (password !== confirmPassword) {
-      alert("As senhas devem ser iguais!");
+      toast.error("As senhas devem ser iguais!");
     } else {
       setDisabled(true);
       const request = await signUp({ name, email, password, image_url });
       setDisabled(false);
 
       if (request.email) {
-        alert("Inscrito com sucesso! Por favor, faça login.");
+        toast.success("Inscrito com sucesso! Por favor, faça login.");
         return router.push("/sign-in");
       }
 
       if (request.response?.status === 409)
-        return alert("Este email já está cadastrado!, tente outro.");
+        return toast.error("Este email já está cadastrado!, tente outro.");
 
       if (request.response?.status === 400)
-        return alert("Preencha os campos corretamente!");
+        return toast.error("Preencha os campos corretamente!");
 
-      alert("Erro ao se inscrever, tente novamente mais tarde.");
+      toast.error("Erro ao se inscrever, tente novamente mais tarde.");
     }
   }
 

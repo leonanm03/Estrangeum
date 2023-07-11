@@ -3,6 +3,7 @@ import useSignIn from "@/hooks/api/useSignin";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SigninPage() {
   const [disabled, setDisabled] = useState(false);
@@ -22,11 +23,11 @@ export default function SigninPage() {
     setDisabled(false);
 
     if (!userData.user)
-      return alert("Erro ao fazer login! Verifique suas credenciais!");
+      return toast.error("Erro ao fazer login! Verifique suas credenciais!");
 
     storeUser(userData);
 
-    alert("Login feito com sucesso!");
+    toast(`Olá, ${userData.user.name}!`);
     router.push("/");
   }
 
