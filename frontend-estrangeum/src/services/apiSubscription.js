@@ -1,4 +1,3 @@
-import useToken from "@/hooks/useToken";
 import api, { authorization } from "./api";
 
 export async function getPending(token) {
@@ -33,5 +32,23 @@ export async function getMySubscriptions(token) {
 
 export async function postSubscription(body, token) {
   const response = await api.post("/subscription", body, authorization(token));
+  return response.data;
+}
+
+export async function approveSubscription(id, token) {
+  const response = await api.put(
+    `/subscription/approve/${id}`,
+    {},
+    authorization(token)
+  );
+  return response.data;
+}
+
+export async function rejectSubscription(id, token) {
+  const response = await api.put(
+    `/subscription/reject/${id}`,
+    {},
+    authorization(token)
+  );
   return response.data;
 }

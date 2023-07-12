@@ -89,7 +89,7 @@ export function ObjectDetails({
                       Ações
                     </legend>
 
-                    <AddOrReject status={status} />
+                    <AddOrReject id={id} />
                   </fieldset>
                 )}
               </form>
