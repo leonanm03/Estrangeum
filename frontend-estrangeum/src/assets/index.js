@@ -1,2 +1,2 @@
-export * from "./sunSvg";
 export * from "./moonSvg";
+export * from "./sunSvg";
