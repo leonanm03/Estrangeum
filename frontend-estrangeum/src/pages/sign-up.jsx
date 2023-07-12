@@ -10,6 +10,7 @@ export default function SignupPage() {
   const [disabled, setDisabled] = useState(false);
   const { signUp } = useSignUp();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [body, setBody] = useState({
     name: "",
     email: "",
@@ -27,11 +28,15 @@ export default function SignupPage() {
     if (password !== confirmPassword) {
       toast.error("As senhas devem ser iguais!");
     } else {
+      setLoading(true);
       setDisabled(true);
+      window.my_modal_2.showModal();
 
       const image_url = await uploadProfile(profile);
       const request = await signUp({ name, email, password, image_url });
+      setLoading(false);
       setDisabled(false);
+      window.my_modal_2.close();
 
       if (request.email) {
         toast.success("Inscrito com sucesso! Por favor, faça login.");
@@ -58,6 +63,21 @@ export default function SignupPage() {
       <Head>
         <title>Cadastro</title>
       </Head>
+
+      <dialog id="my_modal_2" className="modal">
+        <form method="dialogue" className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">
+            {loading
+              ? "Criando usuário..."
+              : `${body.name} criado com sucesso!`}
+          </p>
+          {loading && (
+            <span className="loading loading-spinner loading-lg"></span>
+          )}
+        </form>
+      </dialog>
+
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left text-primary">
