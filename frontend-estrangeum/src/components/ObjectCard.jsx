@@ -1,3 +1,5 @@
+import { showPortugueseCategory } from "@/utils/translateCategory";
+
 export function ObjectCard({ category, name, ObjectImage, children }) {
   const image = ObjectImage[0].image_url;
 
@@ -9,7 +11,9 @@ export function ObjectCard({ category, name, ObjectImage, children }) {
       <div className="card-body">
         <h2 className="card-title text-primary">{name}</h2>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline text-primary">{category}</div>
+          <div className="badge badge-outline text-primary">
+            {showPortugueseCategory(category)}
+          </div>
           {children}
         </div>
       </div>
