@@ -21,7 +21,7 @@ export function Menu() {
         </li>
         {user.type === "ADMIN" && (
           <li>
-            <a href="/pending">Objetos Pendentes</a>
+            <a href="/subscription/pending">Objetos Pendentes</a>
           </li>
         )}
         <li onClick={resetUser}>
