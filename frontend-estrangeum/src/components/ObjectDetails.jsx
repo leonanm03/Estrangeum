@@ -27,7 +27,7 @@ export function ObjectDetails({ object }) {
                 {!showMagnifier && <ZoomIcon />}
               </div>
 
-              <ul className="mt-6 flex gap-1">
+              <ul className="mt-10 flex gap-1">
                 {object.ObjectImage.map((image) => (
                   <li key={image.id}>
                     <img

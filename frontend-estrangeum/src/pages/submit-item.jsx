@@ -1,16 +1,16 @@
-import { UserContext } from "@/contexts/userContext";
 import usePostSubscription from "@/hooks/api/usePostSubscription";
+import useToken from "@/hooks/useToken";
 import { uploadObjects } from "@/services/storage";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 export default function SubmitItem() {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { token } = useContext(UserContext);
+  const token = useToken();
   const { postSubscription } = usePostSubscription();
   const [body, setBody] = useState({
     name: "",
