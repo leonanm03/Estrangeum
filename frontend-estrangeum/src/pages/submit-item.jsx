@@ -1,6 +1,7 @@
 import usePostSubscription from "@/hooks/api/usePostSubscription";
 import useToken from "@/hooks/useToken";
 import { uploadObjects } from "@/services/storage";
+import { showEnglishCategory } from "@/utils/translateCategory";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -15,8 +16,8 @@ export default function SubmitItem() {
   const [body, setBody] = useState({
     name: "",
     description: "",
-    category: "MAGIC",
   });
+  const [category, setCategory] = useState("MAGIC");
   const [images, setImages] = useState(["", "", ""]);
 
   async function handleSubmit(e) {
@@ -26,7 +27,7 @@ export default function SubmitItem() {
     window.my_modal_1.showModal();
     try {
       const SubscriptionImage = await uploadObjects(images);
-      await postSubscription({ ...body, SubscriptionImage }, token);
+      await postSubscription({ ...body, category, SubscriptionImage }, token);
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +37,11 @@ export default function SubmitItem() {
 
   function handleChange(e) {
     setBody({ ...body, [e.target.name]: e.target.value });
+  }
+
+  function handleChangeCategory(e) {
+    const newValue = showEnglishCategory(e.target.value);
+    setCategory(newValue);
   }
 
   function addImageInput() {
@@ -127,14 +133,14 @@ export default function SubmitItem() {
                 <select
                   name="category"
                   className="select select-bordered w-full text-primary"
-                  onChange={handleChange}
-                  defaultValue={body.category}
+                  onChange={handleChangeCategory}
+                  defaultValue={category}
                   disabled={disabled}
                 >
-                  <option>MAGIC</option>
-                  <option>ALIEN</option>
-                  <option>MYSTERY</option>
-                  <option>HAUNTED</option>
+                  <option>MÁGICO</option>
+                  <option>ALIENÍGENA</option>
+                  <option>MISTERIOSO</option>
+                  <option>ASSOMBRADO</option>
                 </select>
               </div>
 
