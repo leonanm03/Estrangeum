@@ -1,4 +1,4 @@
-export function ObjectCard({ id, category, name, ObjectImage }) {
+export function ObjectCard({ category, name, ObjectImage, children }) {
   const image = ObjectImage[0].image_url;
 
   return (
@@ -10,6 +10,7 @@ export function ObjectCard({ id, category, name, ObjectImage }) {
         <h2 className="card-title text-primary">{name}</h2>
         <div className="card-actions justify-end">
           <div className="badge badge-outline text-primary">{category}</div>
+          {children}
         </div>
       </div>
     </div>

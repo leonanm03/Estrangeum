@@ -1,4 +1,5 @@
 import { ObjectCard } from "./ObjectCard";
+import { StatusBadge } from "./StatusBadge";
 
 export function Subscriptions({ subscriptions }) {
   return (
@@ -11,7 +12,9 @@ export function Subscriptions({ subscriptions }) {
               category={object.category}
               name={object.name}
               ObjectImage={object.SubscriptionImage}
-            />
+            >
+              <StatusBadge status={object.status} />
+            </ObjectCard>
           ))
         : "nothing"}
     </div>

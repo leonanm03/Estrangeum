@@ -50,7 +50,6 @@ export default function SignupPage() {
   }
 
   function handleChangeProfile(e) {
-    console.log(e.target.files[0]);
     setProfile(e.target.files[0]);
   }
 
