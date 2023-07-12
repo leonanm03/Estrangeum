@@ -35,6 +35,7 @@ export default function SubscriptionPage() {
         <ObjectDetails
           {...objectData}
           ObjectImage={objectData.SubscriptionImage}
+          isSubscription={true}
         />
       )}
     </>

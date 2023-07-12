@@ -14,6 +14,7 @@ export function ObjectDetails({
   ObjectImage,
   category,
   status = null,
+  isSubscription = false,
 }) {
   const [selectedImage, setSelectedImage] = useState(ObjectImage[0]);
   const [showMagnifier, setShowMagnifier] = useState(false);
@@ -83,7 +84,7 @@ export function ObjectDetails({
                   </fieldset>
                 )}
 
-                {user?.type === "ADMIN" && (
+                {user?.type === "ADMIN" && isSubscription && (
                   <fieldset>
                     <legend className="text-lg font-bold text-primary">
                       Ações
