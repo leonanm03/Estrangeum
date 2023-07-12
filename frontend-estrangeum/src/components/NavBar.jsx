@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { sun, moon } from "../assets";
 import { UserContext } from "@/contexts/userContext";
-import { Menu } from "./Menu";
+import { Menu } from "@/components";
 export function NavBar() {
   const { user } = useContext(UserContext);
   const [theme, setTheme] = useState("");

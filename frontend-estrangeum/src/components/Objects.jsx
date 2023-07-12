@@ -1,5 +1,5 @@
 import useObjects from "@/hooks/api/useObjects";
-import { ObjectCard } from "./ObjectCard";
+import { ObjectCard } from "@/components";
 
 export function Objects() {
   const { objects } = useObjects();

@@ -1,18 +1,28 @@
 import useToken from "@/hooks/useToken";
 import api, { authorization } from "./api";
 
-export async function getPending() {
-  const response = await api.get("/subscription/pending");
-  return response.data;
+export async function getPending(token) {
+  if (token !== null) {
+    const response = await api.get(
+      `/subscription/pending`,
+      authorization(token)
+    );
+    return response.data;
+  }
 }
 
-export async function getSubscription(id) {
-  const response = await api.get(`/subscription/id/${id}`);
-  return response.data;
+export async function getSubscription(id, token) {
+  if (token !== null) {
+    const response = await api.get(
+      `/subscription/id/${id}`,
+      authorization(token)
+    );
+    return response.data;
+  }
 }
 
 export async function getMySubscriptions(token) {
-  if (token) {
+  if (token !== null) {
     const response = await api.get(
       "/subscription/my-items",
       authorization(token)
