@@ -27,7 +27,7 @@ export default function SubmitItem() {
     window.my_modal_1.showModal();
     try {
       const SubscriptionImage = await uploadObjects(images);
-      await postSubscription({ ...body, SubscriptionImage }, token);
+      await postSubscription({ ...body, category, SubscriptionImage }, token);
     } catch (error) {
       console.log(error);
     }
